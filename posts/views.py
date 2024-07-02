@@ -1,27 +1,12 @@
 from django.shortcuts import render, redirect
-from .models import *
-from django.forms import ModelForm
-from django import forms
 from bs4 import BeautifulSoup
 from django.contrib import messages
 import requests
+from .forms import *
 
 def home_view(request):
     posts = Post.objects.all()
     return render(request, 'posts/home.html', {'posts': posts})
-
-class PostCreateForm(ModelForm):
-    class Meta:
-        model = Post
-        fields = ['url', 'body']
-        labels = {
-            'body': 'Caption',
-            'url': 'Image URL',
-        }
-        widgets = {
-            'body': forms.Textarea(attrs={'rows': 3, 'placeholder': 'Write a caption...'}),
-            'url': forms.URLInput(attrs={'placeholder': 'Enter the URL of the image...'}),
-        }
 
 def create_post_view(request):
     form = PostCreateForm()
@@ -60,3 +45,32 @@ def create_post_view(request):
             post_form.save()
             return redirect('home')
     return render(request, 'posts/create_post.html', {'form': form})
+
+def delete_post_view(request, pk):
+    post = Post.objects.get(id=pk)
+    if request.method == "POST":
+        post.delete()
+        messages.success(request, 'Post deleted successfully.')
+        return redirect('home')
+    return render(request, 'posts/delete_post.html', {'post': post})
+
+
+def edit_post_view(request, pk):
+    post = Post.objects.get(id=pk)
+    form = PostEditForm(instance=post) # prefill the form with the post 
+    if request.method == 'POST':
+        form = PostEditForm(request.POST, instance=post)
+        if form.is_valid():
+            form.save()
+            messages.success(request, 'Post updated successfully.')
+            return redirect('home')
+    context = {
+        'form': form,
+        'post': post
+    }
+    return render(request, 'posts/edit_post.html', context)
+
+
+def post_page_view(request, pk):
+    post = Post.objects.get(id=pk)
+    return render(request, 'posts/post_page.html', {'post': post})
