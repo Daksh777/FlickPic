@@ -5,8 +5,11 @@ import requests
 from django.shortcuts import get_object_or_404
 from .forms import *
 
-def home_view(request):
-    posts = Post.objects.all()
+def home_view(request, tag=None):
+    if tag:
+        posts = Post.objects.filter(tags__slug=tag)
+    else:
+        posts = Post.objects.all()
     return render(request, 'posts/home.html', {'posts': posts})
 
 def create_post_view(request):
@@ -44,6 +47,8 @@ def create_post_view(request):
             post_form.artist = artist
             
             post_form.save()
+            messages.success(request, 'Post created successfully.')
+            form.save_m2m()
             return redirect('home')
     return render(request, 'posts/create_post.html', {'form': form})
 
