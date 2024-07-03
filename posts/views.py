@@ -2,6 +2,7 @@ from django.shortcuts import render, redirect
 from bs4 import BeautifulSoup
 from django.contrib import messages
 import requests
+from django.shortcuts import get_object_or_404
 from .forms import *
 
 def home_view(request):
@@ -47,7 +48,7 @@ def create_post_view(request):
     return render(request, 'posts/create_post.html', {'form': form})
 
 def delete_post_view(request, pk):
-    post = Post.objects.get(id=pk)
+    post = get_object_or_404(Post, id=pk)
     if request.method == "POST":
         post.delete()
         messages.success(request, 'Post deleted successfully.')
@@ -56,7 +57,7 @@ def delete_post_view(request, pk):
 
 
 def edit_post_view(request, pk):
-    post = Post.objects.get(id=pk)
+    post = get_object_or_404(Post, id=pk)
     form = PostEditForm(instance=post) # prefill the form with the post 
     if request.method == 'POST':
         form = PostEditForm(request.POST, instance=post)
@@ -72,5 +73,5 @@ def edit_post_view(request, pk):
 
 
 def post_page_view(request, pk):
-    post = Post.objects.get(id=pk)
+    post = get_object_or_404(Post, id=pk)
     return render(request, 'posts/post_page.html', {'post': post})
