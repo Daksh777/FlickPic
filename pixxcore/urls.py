@@ -31,6 +31,7 @@ urlpatterns = [
     path('post/<pk>/', post_page_view, name='post'),
     path('accounts/', include('allauth.urls')),
     path('profile/', profile_view, name='profile'),
+    path('profile/edit/', profile_edit_view, name='profile_edit'),
 ]
 
 urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
