@@ -37,8 +37,10 @@
                     1
                 </div>
                 <a href="">Like</a>
+                {% if user.is_authenticated and user == post.author %}
                 <a href="{% url "edit_post" post.id %}">Edit</a>
                 <a href="{% url "delete_post" post.id %}">Delete</a>
+                {% endif %}
             </div>
         </div>
     </div>
