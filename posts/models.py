@@ -1,9 +1,11 @@
 from django.db import models
 import uuid
+from django.contrib.auth.models import User
 
 class Post(models.Model):
     title = models.CharField(max_length=500)
     artist = models.CharField(max_length=500, null=True)
+    author = models.ForeignKey(User, on_delete=models.SET_NULL, null=True, related_name='posts')
     image = models.URLField(max_length=500)
     url = models.URLField(max_length=500, null=True)
     body = models.TextField()

@@ -31,6 +31,7 @@ urlpatterns = [
     path('post/<pk>/', post_page_view, name='post'),
     path('accounts/', include('allauth.urls')),
     path('profile/', profile_view, name='profile'),
+    path('<username>/', profile_view, name='userprofile'),
     path('profile/edit/', profile_edit_view, name='profile_edit'),
 ]
 
