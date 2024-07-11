@@ -55,6 +55,8 @@ def create_post_view(request):
             artist = html_code.select('a.owner-name')[0].text.strip()
             post_form.artist = artist
             
+            post_form.author = request.user
+            
             post_form.save()
             messages.success(request, 'Post created successfully.')
             form.save_m2m()
