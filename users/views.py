@@ -4,6 +4,7 @@ from django.contrib.auth.models import User
 from django.shortcuts import get_object_or_404
 from django.http import Http404
 from django.contrib.auth import logout
+from django.urls import reverse
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required
 
@@ -25,7 +26,11 @@ def profile_edit_view(request):
         if form.is_valid():
             form.save()
             return redirect('profile')
-    return render(request, 'users/profile_edit.html', {'form': form})
+    if request.path == reverse('profile_onboarding'):
+        template = 'users/profile_onboarding.html'
+    else:
+        template = 'users/profile_edit.html'
+    return render(request, template, {'form': form})
 
 @login_required
 def profile_delete_view(request):
