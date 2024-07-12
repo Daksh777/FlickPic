@@ -93,4 +93,22 @@ def edit_post_view(request, pk):
 
 def post_page_view(request, pk):
     post = get_object_or_404(Post, id=pk)
-    return render(request, 'posts/post_page.html', {'post': post})
+    commentform = CommentCreateForm()
+    context = {
+        'post': post,
+        'commentform': commentform
+    }
+    return render(request, 'posts/post_page.html', context)
+
+@login_required
+def comment_sent(request, pk):
+    post = get_object_or_404(Post, id=pk)
+    if request.method == 'POST':
+        form = CommentCreateForm(request.POST)
+        if form.is_valid():
+            comment = form.save(commit=False)
+            comment.parent_post = post
+            comment.author = request.user
+            comment.save()
+            messages.success(request, 'Comment added successfully.')
+    return redirect('post', post.id)

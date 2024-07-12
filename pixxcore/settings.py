@@ -150,4 +150,4 @@ EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
 ACCOUNT_AUTHENTICATION_METHOD = 'email'
 ACCOUNT_EMAIL_REQUIRED = True
 
-ACCOUNT_USERNAME_BLACKLIST = ['admin', 'categorÿ', 'post', 'profile','superuser', 'staff', 'user', 'moderator', 'root', 'webmaster', 'support', 'help', 'info', 'contact', 'about', 'terms', 'privacy', 'cookie', 'security', 'adminstrator', 'administrator', 'mod', 'moder', 'moderator', 'moderators', 'moderating', 'moderation', 'moderated']
+ACCOUNT_USERNAME_BLACKLIST = ['admin', 'category', 'post', 'profile','superuser', 'staff', 'user', 'moderator', 'root', 'webmaster', 'support', 'help', 'info', 'contact', 'about', 'terms', 'privacy', 'cookie', 'security', 'adminstrator', 'administrator', 'mod', 'moder', 'moderator', 'moderators', 'moderating', 'moderation', 'moderated']
