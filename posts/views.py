@@ -136,3 +136,12 @@ def reply_sent(request, pk):
             reply.save()
             messages.success(request, 'Reply added successfully.')
     return redirect('post', comment.parent_post.id)
+
+@login_required
+def reply_delete_view(request, pk):
+    reply = get_object_or_404(Reply, id=pk, author=request.user)
+    if request.method == "POST":
+        reply.delete()
+        messages.success(request, 'Reply deleted successfully.')
+        return redirect('post', reply.parent_comment.parent_post.id)
+    return render(request, 'posts/delete_reply.html', {'reply': reply})
