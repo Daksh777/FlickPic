@@ -5,6 +5,7 @@ import requests
 from django.shortcuts import get_object_or_404
 from django.contrib.auth.decorators import login_required
 from .forms import *
+from django.http import HttpResponse
 
 def home_view(request, tag=None):
     if tag:
@@ -153,4 +154,4 @@ def like_post_view(request, pk):
         post.likes.remove(request.user)
     else:
         post.likes.add(request.user)
-    return redirect('post', post.id)
+    return render(request, 'snippets/likes.html', {'post': post})

@@ -9,7 +9,7 @@ class Post(models.Model):
     image = models.URLField(max_length=500)
     url = models.URLField(max_length=500, null=True)
     body = models.TextField()
-    likes = models.ManyToManyField(User, related_name='likedposts', blank=True, through="LikedPost")
+    likes = models.ManyToManyField(User, related_name='likedposts', through="LikedPost")
     tags = models.ManyToManyField('Tag')
     created = models.DateTimeField(auto_now_add=True)
     id = models.CharField(max_length=100, primary_key=True, unique=True, editable=False, default=uuid.uuid4)
