@@ -37,6 +37,7 @@ urlpatterns = [
     path('profile/onboarding/', profile_edit_view, name='profile_onboarding'),
     path('commentsent/<pk>/', comment_sent, name='comment_sent'),
     path('comment/delete/<pk>/', comment_delete_view, name='comment_delete'),
+    path('replysent/<pk>/', reply_sent, name='reply_sent'),
 ]
 
 urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
