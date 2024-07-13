@@ -145,3 +145,12 @@ def reply_delete_view(request, pk):
         messages.success(request, 'Reply deleted successfully.')
         return redirect('post', reply.parent_comment.parent_post.id)
     return render(request, 'posts/delete_reply.html', {'reply': reply})
+
+
+def like_post_view(request, pk):
+    post = get_object_or_404(Post, id=pk)
+    if request.user in post.likes.all():
+        post.likes.remove(request.user)
+    else:
+        post.likes.add(request.user)
+    return redirect('post', post.id)
