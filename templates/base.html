@@ -106,11 +106,6 @@
         p {
             margin-bottom: 1rem;
         }
-        form p {
-            display: flex;
-            align-items: center;
-            margin-bottom: 1rem;
-        }
         label, input {
           display: inline-block;
         }
@@ -241,9 +236,17 @@
         form[action="/accounts/signup/"] ul.errorlist {
             @apply block
         }
+
+        .allauth .helptext {
+            @apply block mt-4
+        }
+
+        .allauth .card a {
+            @apply underline underline-offset-2
+        }
     </style>
 </head>
-<body class="bg-gray-100">
+<body class="bg-gray-100 {% block class %}{% endblock  %}">
 {% include "includes/messages.html" %}
 
 {% include "includes/header.html" %}
