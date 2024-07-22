@@ -113,7 +113,7 @@ def comment_sent(request, pk):
             comment.parent_post = post
             comment.author = request.user
             comment.save()
-    return render(request, 'posts/comment.html', {'comment': comment})
+    return render(request, 'snippets/add_comment.html', {'comment': comment, 'post': post})
 
 @login_required
 def comment_delete_view(request, pk):
