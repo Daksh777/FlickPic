@@ -113,8 +113,7 @@ def comment_sent(request, pk):
             comment.parent_post = post
             comment.author = request.user
             comment.save()
-            messages.success(request, 'Comment added successfully.')
-    return redirect('post', post.id)
+    return render(request, 'posts/comment.html', {'comment': comment})
 
 @login_required
 def comment_delete_view(request, pk):
